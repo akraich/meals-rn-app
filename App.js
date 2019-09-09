@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
+import { useScreens } from "react-native-screens";
 import * as Font from "expo-font";
 import { AppLoading } from "expo";
 
@@ -11,6 +12,8 @@ const fetchFonts = () => {
     "open-sans-bold": require("./assets/fonts/OpenSans-Bold.ttf")
   });
 };
+
+useScreens();
 
 export default function App() {
   [fontLoaded, setFontLoaded] = useState(false);
