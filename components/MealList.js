@@ -1,26 +1,34 @@
 import React from "react";
+import { useSelector } from "react-redux";
+
 import { FlatList, StyleSheet } from "react-native";
 
 import MealItem from "./MealItem";
 
 const MealList = props => {
-  const renderListItem = itemData => (
-    <MealItem
-      title={itemData.item.title}
-      duration={itemData.item.duration}
-      complexity={itemData.item.complexity.toUpperCase()}
-      affordability={itemData.item.affordability.toUpperCase()}
-      imageUrl={itemData.item.imageUrl}
-      onSelect={() => {
-        props.navigation.navigate({
-          routeName: "MealDetail",
-          params: {
-            mealId: itemData.item.id
-          }
-        });
-      }}
-    />
-  );
+  const favoriteMeals = useSelector(state => state.meals.favoriteMeals);
+  const renderListItem = itemData => {
+    const isFavorite = favoriteMeals.some(meal => meal.id === itemData.item.id);
+    return (
+      <MealItem
+        title={itemData.item.title}
+        duration={itemData.item.duration}
+        complexity={itemData.item.complexity.toUpperCase()}
+        affordability={itemData.item.affordability.toUpperCase()}
+        imageUrl={itemData.item.imageUrl}
+        onSelect={() => {
+          props.navigation.navigate({
+            routeName: "MealDetail",
+            params: {
+              mealId: itemData.item.id,
+              mealTitle: itemData.item.title,
+              isFav: isFavorite
+            }
+          });
+        }}
+      />
+    );
+  };
   return (
     <FlatList
       style={{ width: "100%" }}

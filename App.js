@@ -1,5 +1,11 @@
 import React, { useState } from "react";
+import { createStore, combineReducers } from "redux";
+import { Provider } from "react-redux";
+
 import { useScreens } from "react-native-screens";
+
+import MealsReducer from "./store/reducers/meals";
+
 import * as Font from "expo-font";
 import { AppLoading } from "expo";
 
@@ -14,6 +20,12 @@ const fetchFonts = () => {
 
 useScreens();
 
+const rootReducer = combineReducers({
+  meals: MealsReducer
+});
+
+const store = createStore(rootReducer);
+
 export default function App() {
   [fontLoaded, setFontLoaded] = useState(false);
 
@@ -26,5 +38,9 @@ export default function App() {
     );
   }
 
-  return <MealsNavigator />;
+  return (
+    <Provider store={store}>
+      <MealsNavigator />
+    </Provider>
+  );
 }

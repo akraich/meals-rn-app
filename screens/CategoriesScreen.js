@@ -8,7 +8,6 @@ import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import HeaderButton from "../components/HeaderButton";
 
 import { CATEGORIES } from "../data/dummy-data";
-import { Colors } from "../constants/Colors";
 
 const CategoriesScreen = props => {
   const renderGridItem = itemData => (
